@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_template_project/resources/app_colors.dart';
 
 enum Environment {
   dev,
@@ -51,13 +50,13 @@ extension FlavourTypeExtension on String {
   Color getFlavourColor() {
     switch (this) {
       case 'dev':
-        return Colors.yellow[800]!;
+        return AppColors.focusLibraryButton!;
       case 'stage':
-        return Colors.grey[600]!;
+        return AppColors.darkGray!;
       case 'prod':
-        return Colors.green[600]!;
+        return AppColors.green!;
       default:
-        return Colors.blue[600]!;
+        return AppColors.white!;
     }
   }
 
