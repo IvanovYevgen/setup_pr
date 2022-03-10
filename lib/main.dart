@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template_project/flavour_config.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:logger/logger.dart';
 
 Future initializeApp() async {
   runApp(const MyApp());
@@ -44,10 +45,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  var logger = Logger();
+
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+  }
+
+  void _log() {
+    logger.d('Log message with 2 methods');
+    logger.i('Info message');
+    logger.w('Just a warning!');
+    logger.e('Error! Something bad happened', 'Test Error');
+    logger.v({'key': 5, 'value': 'something'});
+    Logger(printer: SimplePrinter(colors: true)).v('boom');
   }
 
   @override
@@ -64,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-        Text(AppLocalizations.of(context)!.title),
+            Text(AppLocalizations.of(context)!.title),
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -76,7 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          _incrementCounter();
+          _log();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
